@@ -31,7 +31,7 @@ pub use self::srt::{CipherType, SrtControlPacket, SrtHandshake, SrtKeyMessage, S
 ///  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 /// ```
 /// (from <https://tools.ietf.org/html/draft-gg-udt-03#page-5>)
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ControlPacket {
     /// The timestamp, relative to the socket start time
     pub timestamp: i32,
@@ -44,7 +44,7 @@ pub struct ControlPacket {
 }
 
 /// The different kind of control packets
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 #[allow(clippy::large_enum_variant)]
 pub enum ControlTypes {
     /// The control packet for initiating connections, type 0x0
@@ -123,7 +123,7 @@ bitflags! {
 }
 
 /// HS-version dependenent data
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 #[allow(clippy::large_enum_variant)]
 pub enum HandshakeVSInfo {
     V4(SocketType),
@@ -144,7 +144,7 @@ pub enum HandshakeVSInfo {
 }
 
 /// The control info for handshake packets
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct HandshakeControlInfo {
     /// The initial sequence number, usually randomly initialized
     pub init_seq_num: SeqNumber,
@@ -176,7 +176,7 @@ pub struct HandshakeControlInfo {
 }
 
 /// The socket type for a handshake.
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum SocketType {
     /// A stream socket, 1 when serialized
     Stream = 1,
@@ -206,7 +206,7 @@ pub enum SocketType {
 /// <-- CONCLUSION (without extensions, if RESPONDER, with extensions, if INITIATOR)
 /// --> CONCLUSION (with response extensions, if RESPONDER)
 /// <-- AGREEMENT (sent exclusively by INITIATOR upon reception of CONCLUSIOn with response extensions)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ShakeType {
     /// First handshake exchange in client-server connection
     Induction = 1,

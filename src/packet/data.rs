@@ -20,7 +20,7 @@ use crate::{MsgNumber, SeqNumber, SocketID};
 ///  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 /// ```
 /// (from <https://tools.ietf.org/html/draft-gg-udt-03>)
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DataPacket {
     /// The sequence number is packet based, so if packet n has
     /// sequence number `i`, the next would have `i + 1`
@@ -60,6 +60,7 @@ bitflags! {
     pub struct PacketLocation: u8 {
         const FIRST    = 0b1000_0000;
         const LAST     = 0b0100_0000;
+        const ONLY = Self::FIRST.bits | Self::LAST.bits;
     }
 }
 
